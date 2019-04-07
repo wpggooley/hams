@@ -1,0 +1,6 @@
+<div class="row">
+  <div class="col-6">
+    <h2 class="d-inline">Add User</h2>
+    <%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create)) %>
+  </div>
+</div>

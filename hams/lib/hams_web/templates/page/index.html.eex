@@ -1,35 +1,11 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>A productive web framework that<br/>does not compromise speed and maintainability.</p>
-</section>
+<!-- all users can click to go to list of tours
+# admin also has button to go to list of users -->
 
-<section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.4/CHANGELOG.md">v1.4 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-    </ul>
-  </article>
-</section>
+<%= if @current_user do %>
+  <%= link "Tours", to: Routes.tour_path(@conn, :index), class: "btn btn-primary col-12" %>
+<% end %>
+
+<%= if @current_user && @current_user.admin do %>
+  <%= link "Users", to: Routes.user_path(@conn, :index), class: "btn btn-danger col-12"  %>
+  <%= link "Add User", to: Routes.user_path(@conn, :new), class: "btn btn-success col-12"  %>
+<% end %>

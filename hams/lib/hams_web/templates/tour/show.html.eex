@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-6">
+    <h2 class="d-inline">Tour Info</h2>
+    <%= link "Edit", to: Routes.tour_path(@conn, :edit, @tour), class: "btn btn-secondary float-right" %>
+    <table class="table">
+      <tr><td>When</td><td><%= @tour.when %></td></tr>
+      <tr><td>Type</td><td><%= @tour.type %></td></tr>
+      <tr><td>Guides Needed</td><td><%= @tour.guides_needed %></td></tr>
+    </table>
+  </div>
+  <div class="col-6">
+  </div>
+
+<%= if @current_user.admin do %>
+<span><%= link "Delete", to: Routes.tour_path(@conn, :delete, @tour), method: :delete, data: [confirm: "Delete?"], class: "btn btn-danger" %></span>
+<% end %>

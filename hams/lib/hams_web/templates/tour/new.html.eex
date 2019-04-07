@@ -1,0 +1,6 @@
+<div class="row">
+  <div class="col-6">
+    <h2 class="d-inline">Add Tour</h2>
+    <%= render "form.html", Map.put(assigns, :action, Routes.tour_path(@conn, :create)) %>
+  </div>
+</div>

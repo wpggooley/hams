@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-12">
+    <h2 class="d-inline">Users</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>First</th>
+          <th>Last</th>
+          <th>Email</th>
+          <th>Admin</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for user <- @users do %>
+        <tr>
+          <td class="align-middle"><%= user.fname %></td>
+          <td class="align-middle"><%= user.lname %></td>
+          <td class="align-middle"><%= user.email %></td>
+          <td class="align-middle"><%= user.admin%></td>
+          <td>
+            <%= link "View", to: Routes.user_path(@conn, :show, user), class: "btn btn-primary" %>
+          </td>
+          <td>
+            <%= link "Edit", to: Routes.user_path(@conn, :edit, user), class: "btn btn-secondary" %>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

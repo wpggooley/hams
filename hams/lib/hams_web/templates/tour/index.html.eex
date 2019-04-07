@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-12">
+    <h2 class="d-inline">Tours</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>When</th>
+          <th>Type</th>
+          <th>Guides Needed</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for tour <- @tours do %>
+        <tr>
+          <td class="align-middle"><%= tour.when %></td>
+          <td class="align-middle"><%= tour.type %></td>
+          <td class="align-middle"><%= tour.guides_needed %></td>
+          <td>
+            <%= link "Join", to: Routes.tour_path(@conn, :show, tour), class: "btn btn-primary" %>
+          </td>
+          <td>
+            <%= if @current_user && @current_user.admin do %>
+              <%= link "Edit", to: Routes.tour_path(@conn, :edit, tour), class: "btn btn-secondary" %>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

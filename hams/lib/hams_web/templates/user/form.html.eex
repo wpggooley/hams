@@ -1,0 +1,19 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+
+  <table class="table">
+    <tr><td><%= label f, "First" %></td><td><%= text_input f, :fname %></td><td><%= error_tag f, :fname %></td></tr>
+    <tr><td><%= label f, "Last" %></td><td><%= text_input f, :lname %></td><td><%= error_tag f, :lname %></td></tr>
+    <tr><td><%= label f, :email %></td><td><%= text_input f, :email %></td><td><%= error_tag f, :email %></td></tr>
+    <tr><td><%= label f, :admin %></td><td><%= text_input f, :admin %></td><td><%= error_tag f, :admin %></td></tr>
+  </table>
+
+  <div>
+    <%= submit "Save", class: "btn btn-primary" %>
+  </div>
+<% end %>
