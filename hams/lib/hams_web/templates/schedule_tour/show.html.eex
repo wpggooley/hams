@@ -1,0 +1,8 @@
+<h1>Show Schedule tour</h1>
+
+<ul>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.schedule_tour_path(@conn, :edit, @schedule_tour) %></span>
+<span><%= link "Back", to: Routes.schedule_tour_path(@conn, :index) %></span>

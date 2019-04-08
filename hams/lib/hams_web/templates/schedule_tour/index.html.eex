@@ -1,0 +1,24 @@
+<h1>Listing Schedule tours</h1>
+
+<table>
+  <thead>
+    <tr>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for schedule_tour <- @schedule_tours do %>
+    <tr>
+
+      <td>
+        <%= link "Show", to: Routes.schedule_tour_path(@conn, :show, schedule_tour) %>
+        <%= link "Edit", to: Routes.schedule_tour_path(@conn, :edit, schedule_tour) %>
+        <%= link "Delete", to: Routes.schedule_tour_path(@conn, :delete, schedule_tour), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Schedule tour", to: Routes.schedule_tour_path(@conn, :new) %></span>

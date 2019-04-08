@@ -1,0 +1,5 @@
+<h1>Edit Schedule tour</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.schedule_tour_path(@conn, :update, @schedule_tour)) %>
+
+<span><%= link "Back", to: Routes.schedule_tour_path(@conn, :index) %></span>
