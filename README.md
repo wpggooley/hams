@@ -9,8 +9,8 @@ admin: boolean,
 
 #Tours
 id: int (auto-generated)
-when: Datetime
-type: string (enum: Admitted, Prospective)
+when: :naive_datetime (postgresql/ecto doesn't have great support for non-UTC times)
+tour_type: string (enum: Admitted, Prospective; enum via dropdown b/c postgresql/ecto doesn't support enum)
 guides_needed: int
 
 
