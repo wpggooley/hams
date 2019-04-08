@@ -1,8 +1,8 @@
 defmodule HamsWeb.SessionController do
   use HamsWeb, :controller
 
-  def create(conn, %{"email" => email}) do
-    user = Hams.Users.get_user_by_email(email)
+  def create(conn, %{"email" => email, "password" => password}) do
+    user = Hams.Users.get_and_auth_user(email, password)
     if user do
       conn
         |> put_session(:user_id, user.id)
@@ -14,6 +14,7 @@ defmodule HamsWeb.SessionController do
         |> redirect(to: Routes.page_path(conn, :index))
     end
   end
+
 
   def delete(conn, _params) do
     conn
