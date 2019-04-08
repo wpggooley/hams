@@ -7,14 +7,43 @@ defmodule Hams.Users.User do
     field :email, :string
     field :fname, :string
     field :lname, :string
+    field :password_hash, :string
+    field :password, :string, virtual: true
+    field :password_confirmation, :string, virtual: true
 
     timestamps()
   end
 
-  @doc false
+
+#password logic from nattuck: https://github.com/nattuck/husky_shop/blob/8-passwords/lib/husky_shop/users/user.ex
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :admin, :fname, :lname])
-    |> validate_required([:email, :admin, :fname, :lname])
+    |> cast(attrs, [:email, :admin, :fname, :lname, :password, :password_confirmation])
+    |> validate_confirmation(:password)
+    |> validate_password(:password)
+    |> put_pass_hash()
+    |> validate_required([:email, :admin, :fname, :lname, :password_hash])
   end
+
+  # Password validation
+  # From Comeonin docs
+  def validate_password(changeset, field, options \\ []) do
+    validate_change(changeset, field, fn _, password ->
+      case valid_password?(password) do
+        {:ok, _} -> []
+        {:error, msg} -> [{field, options[:message] || msg}]
+      end
+    end)
+  end
+
+  def put_pass_hash(%Ecto.Changeset{
+        valid?: true, changes: %{password: password}} = changeset) do
+    change(changeset, Comeonin.Argon2.add_hash(password))
+  end
+  def put_pass_hash(changeset), do: changeset
+
+  def valid_password?(password) when byte_size(password) > 7 do
+    {:ok, password}
+  end
+  def valid_password?(_), do: {:error, "The password is too short"}
 end

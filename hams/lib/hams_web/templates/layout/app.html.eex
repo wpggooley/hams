@@ -10,6 +10,7 @@
   <body>
     <div class="container">
       <nav class="navbar navbar-expand-lg bg-red text-white">
+        <!-- image from https://twitter.com/Northeastern?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor -->
         <a class="navbar-brand" href="/"><img class="northeasternn" src="<%= Routes.static_path(@conn, "/images/northeasternn.jpg") %>"/></a>
         <ul class="navbar-nav">
           <li class="nav-item ">
