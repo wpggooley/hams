@@ -7,6 +7,8 @@ defmodule Hams.Tours do
   alias Hams.Repo
 
   alias Hams.Tours.Tour
+  alias Hams.Schedules
+  alias Hams.Schedules.ScheduleTour
 
   @doc """
   Returns the list of tours.
@@ -36,6 +38,13 @@ defmodule Hams.Tours do
 
   """
   def get_tour!(id), do: Repo.get!(Tour, id)
+
+  def get_user_tours!(userId) do
+    query = from st in ScheduleTour,
+              join: t in Tour, where: st.tour_id == t.id and st.user_id == ^userId,
+              select: {t.when, t.type}
+    Repo.all(query)
+  end
 
   @doc """
   Creates a tour.

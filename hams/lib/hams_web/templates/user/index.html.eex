@@ -18,7 +18,7 @@
           <td class="align-middle"><%= user.fname %></td>
           <td class="align-middle"><%= user.lname %></td>
           <td class="align-middle"><%= user.email %></td>
-          <td class="align-middle"><%= user.admin%></td>
+          <td class="align-middle"><%= user.admin %></td>
           <td>
             <%= link "View", to: Routes.user_path(@conn, :show, user), class: "btn btn-primary" %>
           </td>

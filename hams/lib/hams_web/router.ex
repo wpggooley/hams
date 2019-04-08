@@ -20,6 +20,7 @@ defmodule HamsWeb.Router do
     get "/", PageController, :index
     resources "/users", UserController
     resources "/tours", TourController
+    resources "/schedule_tours", ScheduleTourController
     resources "/sessions", SessionController, only: [:create, :delete], singleton: true
   end
 

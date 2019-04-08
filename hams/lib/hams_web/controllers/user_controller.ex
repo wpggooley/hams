@@ -3,6 +3,10 @@ defmodule HamsWeb.UserController do
 
   alias Hams.Users
   alias Hams.Users.User
+  alias Hams.Tours
+  alias Hams.Tours.Tour
+  alias Hams.Schedules
+  alias Hams.Schedules.ScheduleTour
 
   def index(conn, _params) do
     current_user = Users.get_user(get_session(conn, :user_id) || -1)
@@ -43,10 +47,11 @@ defmodule HamsWeb.UserController do
   def show(conn, %{"id" => id}) do
     requested_user = Users.get_user!(id)
     current_user = Users.get_user(get_session(conn, :user_id) || -1)
+    tours = Tours.get_user_tours!(id)
 
     # if current user is an admin, they can view all other users, otherwise redirect to own profile
     if current_user.admin || current_user == requested_user do
-      render(conn, "show.html", user: requested_user)
+      render(conn, "show.html", user: requested_user, tours: tours)
     else
       render(conn, "show.html", user: current_user)
     end

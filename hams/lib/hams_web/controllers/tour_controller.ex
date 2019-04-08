@@ -49,24 +49,29 @@ defmodule HamsWeb.TourController do
   def edit(conn, %{"id" => id}) do
     current_user = Users.get_user(get_session(conn, :user_id) || -1)
 
-    tour = Tours.get_tour!(id)
-    changeset = Tours.change_tour(tour)
-    render(conn, "edit.html", tour: tour, changeset: changeset)
+    if current_user.admin do
+      tour = Tours.get_tour!(id)
+      changeset = Tours.change_tour(tour)
+      render(conn, "edit.html", tour: tour, changeset: changeset)
+    else
+      redirect(conn, to: Routes.page_path(conn, :index))
+    end
   end
 
-  def join(conn, %{"id" => id, "tour" => tour_params}) do
+  def edit(conn, %{"id" => id, "user" => user}) do
     tour = Tours.get_tour!(id)
     current_user = Users.get_user(get_session(conn, :user_id) || -1)
 
-    case Tours.update_tour(tour, tour_params) do
-      {:ok, tour} ->
-        conn
-        |> put_flash(:info, "Tour joined successfully.")
+    # case Tours.update_tour(tour, tour_params) do
+    #   {:ok, tour} ->
+    #     conn
+    #     |> put_flash(:info, "Tour joined successfully.")
+    #
+    #   {:error, %Ecto.Changeset{} = changeset} ->
+    #     conn
+    #     |> put_flash(:error, "An error occurred, please try again.")
+    # end
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        conn
-        |> putflash(:error, "An error occurred, please try again.")
-    end
   end
 
   def update(conn, %{"id" => id, "tour" => tour_params}) do
@@ -76,10 +81,10 @@ defmodule HamsWeb.TourController do
       {:ok, tour} ->
         conn
         |> put_flash(:info, "Tour updated successfully.")
-        |> redirect(to: Routes.tour_path(conn, :show, tour))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", tour: tour, changeset: changeset)
+        conn
+        |> put_flash(:info, "An error occurred, please try again.")
     end
   end
 

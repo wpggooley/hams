@@ -11,6 +11,12 @@
   </div>
   <div class="col-6">
     <h2>Tour Signups</h2>
+    <table class="table">
+      <%= for tour <- @tours do %>
+        <tr><td><%= elem(tour,0) %></td><td><%= elem(tour,1) %></td></tr>
+      <% end %>
+    </table>
+
   </div>
 
 <%= if @current_user.admin do %>

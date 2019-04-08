@@ -18,7 +18,11 @@
           <td class="align-middle"><%= tour.type %></td>
           <td class="align-middle"><%= tour.guides_needed %></td>
           <td>
-            <%= link "Join", to: Routes.tour_path(@conn, :show, tour), class: "btn btn-primary" %>
+            <%= if tour.guides_needed > 0 do %>
+              <%= link "Join", to: Routes.schedule_tour_path(@conn, :create, schedule_tour: %{user_id: @current_user.id, tour_id: tour.id}), method: :create, class: "btn btn-primary" %>
+            <% else %>
+              <%= link "Join", to: Routes.page_path(@conn, :index), class: "btn btn-secondary disabled" %>
+            <% end %>
           </td>
           <td>
             <%= if @current_user && @current_user.admin do %>
